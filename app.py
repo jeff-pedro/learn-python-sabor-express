@@ -1,3 +1,5 @@
+#!/usr/bin/python3.12
+
 import os
 import json
 
@@ -18,37 +20,34 @@ def exibir_opcoes():
 
 
 def escolher_opcoes():
-    opcao_escolhida = int(input('Escolha uma opção: '))
-    match opcao_escolhida:
-        case 1: 
-            cadastrar_restaurante()
-        case 2: 
-            listar_restaurantes()
-        case 3: 
-            ativar_restaurante()
-        case 4: 
-            finalizar_app()
-        case _:
-            print('Opção inválida!')
-        
-
-    """ com IF """
-    # if (opcao_escolhida == 1):
-    #     cadastrar_restaurante()
-    # elif (opcao_escolhida == 2):
-    #     listar_restaurantes()
-    # elif (opcao_escolhida == 3):
-    #     ativar_restaurante()
-    # elif (opcao_escolhida == 4):
-    #     finalizar_app();
-    # else:
-    #     print('Opção inválida!')
+    try:
+        opcao_escolhida = int(input('Escolha uma opção: '))
+        match opcao_escolhida:
+            case 1: 
+                cadastrar_restaurante()
+            case 2: 
+                listar_restaurantes()
+            case 3: 
+                ativar_restaurante()
+            case 4: 
+                finalizar_app()
+            case _:
+                opcao_invalida()
+    except:
+        opcao_invalida()
 
 
 def main(): 
+    os.system('clear')
     exibir_nome_do_programa()
     exibir_opcoes()    
     escolher_opcoes()
+
+
+def opcao_invalida():
+    print('Opção inválida!\n')
+    input('Digite uma tecla para voltar ao menu principal')
+    main()
 
 
 def finalizar_app():
@@ -64,8 +63,8 @@ def gerarId():
 
 
 def cadastrar_restaurante():
-    # print('\n======= Cadastro de Restaurantes =======\n')
-
+    print('\n')
+    
     nome = input('Nome: ')
     categoria = input('Categoria: ')
     tipo_comida = input('Tipo de comida: ')
@@ -81,13 +80,14 @@ def cadastrar_restaurante():
     restaurantes.append(restaurante)
 
     print('\nRestaurante cadastrado com sucesso!\n')
+    
+    input('Digite uma tecla para voltar ao menu principal')
     main()
 
 
 def listar_restaurantes():
-    # print('\n======= Listagem de Restaurantes =======\n')
-
     print(json.dumps(restaurantes, indent=4))
+    input('Digite uma tecla para voltar ao menu principal')
     main()
 
 
@@ -99,7 +99,10 @@ def ativar_restaurante():
             restaurante['ativo'] = True
     
     print(f'\nRestaurante com id {id} atualizado com sucesso!\n')
+
+    input('Digite uma tecla para voltar ao menu principal')
     main()
+
 
 if __name__ == '__main__':
     main()
