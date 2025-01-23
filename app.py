@@ -19,6 +19,11 @@ def exibir_opcoes():
     print('4. Sair\n')
 
 
+def exibir_subtitulos(texto):
+    os.system('clear')
+    print(f'=== {texto} ===\n')
+
+
 def escolher_opcoes():
     try:
         opcao_escolhida = int(input('Escolha uma opção: '))
@@ -37,22 +42,19 @@ def escolher_opcoes():
         opcao_invalida()
 
 
-def main(): 
-    os.system('clear')
-    exibir_nome_do_programa()
-    exibir_opcoes()    
-    escolher_opcoes()
+def voltar_ao_menu_principal():
+    input('\nDigite uma tecla para voltar ao menu principal ')
+    main()
 
 
 def opcao_invalida():
-    print('Opção inválida!\n')
-    input('Digite uma tecla para voltar ao menu principal')
-    main()
+    print('\nOpção inválida!')
+    voltar_ao_menu_principal()
 
 
 def finalizar_app():
     os.system('clear');
-    print('Finalizando o app\n')
+    print('Finalizando o app...\n')
 
 
 def gerarId():
@@ -63,8 +65,8 @@ def gerarId():
 
 
 def cadastrar_restaurante():
-    print('\n')
-    
+    exibir_subtitulos('Cadastro de novos restaurantes')
+
     nome = input('Nome: ')
     categoria = input('Categoria: ')
     tipo_comida = input('Tipo de comida: ')
@@ -79,29 +81,41 @@ def cadastrar_restaurante():
     
     restaurantes.append(restaurante)
 
-    print('\nRestaurante cadastrado com sucesso!\n')
-    
-    input('Digite uma tecla para voltar ao menu principal')
-    main()
+    print(f'\nRestaurante {nome} foi cadastrado com sucesso!')
+    voltar_ao_menu_principal()
 
 
 def listar_restaurantes():
-    print(json.dumps(restaurantes, indent=4))
-    input('Digite uma tecla para voltar ao menu principal')
-    main()
+    exibir_subtitulos('Lista de restaurantes')
+    
+    lista_de_restaurantes = json.dumps(restaurantes, indent=4)
+
+    if len(restaurantes) > 0:
+        print(lista_de_restaurantes)
+        voltar_ao_menu_principal()
+    else:
+        print('Nenhum restaurante cadastrado!')
+        voltar_ao_menu_principal()
 
 
 def ativar_restaurante():
+    exibir_subtitulos('Ativando restaurantes')
+    
     id = int(input('Digite o ID do restaurante: '))
     
     for restaurante in restaurantes:
         if (restaurante['id'] == id):
             restaurante['ativo'] = True
     
-    print(f'\nRestaurante com id {id} atualizado com sucesso!\n')
+    print(f'\nRestaurante com id {id} atualizado com sucesso!')
+    voltar_ao_menu_principal()
 
-    input('Digite uma tecla para voltar ao menu principal')
-    main()
+
+def main(): 
+    os.system('clear')
+    exibir_nome_do_programa()
+    exibir_opcoes()    
+    escolher_opcoes()
 
 
 if __name__ == '__main__':
