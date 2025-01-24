@@ -20,7 +20,12 @@ def exibir_opcoes():
 
 def exibir_subtitulos(texto):
     os.system('clear')
-    print(f'=== {texto} ===\n')
+
+    linha = '*' * len(texto)
+    print(linha)
+    print(texto.upper())
+    print(linha)
+    print()
 
 
 def escolher_opcoes():
@@ -91,17 +96,34 @@ def cadastrar_restaurante():
 def listar_restaurantes():
     exibir_subtitulos('Lista de restaurantes')
     
-    for restaurante in restaurantes:
-        nome = restaurante['nome']
-        categoria = restaurante['categoria']
-        ativo = restaurante['ativo']
+    try:
+        if not restaurantes:
+            raise Exception('Nenhum restaurante encontrado.')
+    
+        nome_tituto = 'NOME DO RESTAURANTE'.ljust(20)
+        categoria_titulo = 'CATEGORIA'.ljust(20)
+        status_titulo = 'STATUS'
 
-        print(f'- {nome} | {categoria} | {'ativo' if ativo  else 'inativo' }')
+        print(f'{nome_tituto}|{categoria_titulo}|{status_titulo}')
+        print(f'{"-" * len(nome_tituto)}|{"-" * len(categoria_titulo)}|{"-" * (len(status_titulo) + 4)}')
+        
+        for restaurante in restaurantes:
+            nome = restaurante['nome']
+            categoria = restaurante['categoria']
+            ativo = 'ATIVADO' if restaurante['ativo'] else 'DESATIVADO'
+
+            print(f'{nome.ljust(20)}|{categoria.ljust(20)}|{ativo}')
+
+    except Exception as e:
+        print(e)
 
     voltar_ao_menu_principal()
 
 
 def buscar_restaurante(nome):
+    if not restaurantes:
+        return False
+
     for restaurante in restaurantes:
         if restaurante['nome'] == nome:
             return restaurante
