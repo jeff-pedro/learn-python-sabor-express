@@ -5,6 +5,7 @@ import os
 restaurantes = []
 
 def exibir_nome_do_programa():
+    ''' Imprime o nome estilizado do programa no terminal ''' 
     print('''
 █▀ ▄▀█ █▄▄ █▀█ █▀█   █▀▀ ▀▄▀ █▀█ █▀█ █▀▀ █▀ █▀
 ▄█ █▀█ █▄█ █▄█ █▀▄   ██▄ █░█ █▀▀ █▀▄ ██▄ ▄█ ▄█
@@ -12,6 +13,7 @@ def exibir_nome_do_programa():
 
 
 def exibir_opcoes():
+    ''' Exibe as opções de funcionalidades do aplicativo no menu principal '''
     print('1. Cadastrar restaurante')
     print('2. Listar restaurante')
     print('3. Ativar | Desativar restaurante')
@@ -19,6 +21,12 @@ def exibir_opcoes():
 
 
 def exibir_subtitulos(texto):
+    ''' 
+    Exibe um titulo estilizado no terminal
+
+    Inputs:
+        texto (str): texto do subtítulo
+    '''
     os.system('clear')
 
     linha = '*' * len(texto)
@@ -29,6 +37,12 @@ def exibir_subtitulos(texto):
 
 
 def escolher_opcoes():
+    '''
+    Solicita e executa a opção escolhida pelo usuário
+
+    Outputs:
+        Executa a opção escolhida pelo usuário 
+    '''
     try:
         opcao_escolhida = int(input('Escolha uma opção: '))
         match opcao_escolhida:
@@ -47,25 +61,48 @@ def escolher_opcoes():
 
 
 def voltar_ao_menu_principal():
+    '''
+    Solicita uma tecla para voltar ao menu principal
+
+    Outputs:
+        Retorn ao menu principal
+    '''
     input('\nDigite uma tecla para voltar ao menu principal ')
     main()
 
 
 def opcao_invalida():
+    ''' Exibe mensagem de opção inválida e retorna ao menu principal ''' 
     print('\nOpção inválida!')
     voltar_ao_menu_principal()
 
 
 def finalizar_app():
+    ''' Exibe mensagem de finalização do aplicativo '''
     os.system('clear');
     print('Finalizando o app...\n')
 
 
 def gerarId():
+    '''
+    Gera um identificador único para cada restaurante
+
+    Outputs:
+        int: um número inteiro único e sequencial 
+    '''
     return 1 if not restaurantes else (restaurantes[-1]['id'] + 1)
 
 
 def obter_input_valido(campo):
+    ''' 
+    Obtem, formata e valida se o valor do input não está vazio
+
+    Inputs:
+        campo (str): campo/mensagem que será apresentada no input
+
+    Outputs:
+        string:  valor do input formatado e em letras maíusculas 
+    '''
     valor = input(f'{campo}: ').strip().upper()
     while not valor:
         print(f'{campo} do restaurante não pode ser vazio.')
@@ -74,6 +111,16 @@ def obter_input_valido(campo):
 
 
 def cadastrar_restaurante():
+    ''' 
+    Essa função é responsável por cadastrar um novo restaurante
+
+    Inputs:
+        Nome do restaurante
+        Categoria
+
+    Output: 
+        Adiciona um novo restaurante a lista de restaurantes
+    '''
     exibir_subtitulos('Cadastro de novos restaurantes')
 
     nome = obter_input_valido('Nome')
@@ -94,18 +141,24 @@ def cadastrar_restaurante():
 
 
 def listar_restaurantes():
+    ''' 
+    Lista os restaurantes contidos na lista
+
+    Outputs:
+        Exibe a lista de restaurantes no terminal
+    ''' 
     exibir_subtitulos('Lista de restaurantes')
     
     try:
         if not restaurantes:
             raise Exception('Nenhum restaurante encontrado.')
     
-        nome_tituto = 'NOME DO RESTAURANTE'.ljust(20)
-        categoria_titulo = 'CATEGORIA'.ljust(20)
-        status_titulo = 'STATUS'
+        NOME_TITULO = 'NOME DO RESTAURANTE'.ljust(20)
+        CATEGORIA_TITULO = 'CATEGORIA'.ljust(20)
+        STATUS_TITULO = 'STATUS'
 
-        print(f'{nome_tituto}|{categoria_titulo}|{status_titulo}')
-        print(f'{"-" * len(nome_tituto)}|{"-" * len(categoria_titulo)}|{"-" * (len(status_titulo) + 4)}')
+        print(f'{NOME_TITULO}|{CATEGORIA_TITULO}|{STATUS_TITULO}')
+        print(f'{"-" * len(NOME_TITULO)}|{"-" * len(CATEGORIA_TITULO)}|{"-" * (len(STATUS_TITULO) + 4)}')
         
         for restaurante in restaurantes:
             nome = restaurante['nome']
@@ -113,7 +166,6 @@ def listar_restaurantes():
             ativo = 'ATIVADO' if restaurante['ativo'] else 'DESATIVADO'
 
             print(f'{nome.ljust(20)}|{categoria.ljust(20)}|{ativo}')
-
     except Exception as e:
         print(e)
 
@@ -121,6 +173,15 @@ def listar_restaurantes():
 
 
 def buscar_restaurante(nome):
+    '''
+    Busca restaurante na lista de restaurantes
+
+    Inputs:
+        nome (str): nome do restaurante a ser buscado na lista
+
+    Outputs:
+        string: dicionario encontrado que representa um restaurante   
+    '''
     if not restaurantes:
         return False
 
@@ -130,6 +191,15 @@ def buscar_restaurante(nome):
 
 
 def alternar_estado_restaurante():
+    ''' 
+    Altera o estado ativo/inativo de um restaurante
+
+    Inputs:
+        Nome do restaurante
+
+    Outputs:
+        Mensagem de sucesso quando a propriedade 'ativo' é alterada para True ou False
+    '''
     exibir_subtitulos('Alternando o estado do restaurante')
     
     nome_restaurante = input('Digite o nome do restaurante: ').strip().upper()
@@ -147,6 +217,7 @@ def alternar_estado_restaurante():
 
 
 def main(): 
+    ''' Função principal que inicia o programa '''
     os.system('clear')
     exibir_nome_do_programa()
     exibir_opcoes()    
