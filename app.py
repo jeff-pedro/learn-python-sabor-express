@@ -90,7 +90,7 @@ def listar_restaurantes():
     
     lista_de_restaurantes = json.dumps(restaurantes, indent=4)
 
-    if len(restaurantes) > 0:
+    if restaurantes:
         print(lista_de_restaurantes)
         voltar_ao_menu_principal()
     else:
