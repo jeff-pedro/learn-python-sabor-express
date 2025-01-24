@@ -1,21 +1,20 @@
 #!/usr/bin/python3.12
 
 import os
-import json
 
 restaurantes = []
 
 def exibir_nome_do_programa():
     print('''
-█▀ █▀█ █▄▄ █▀█ █▀█   █▀▀ ▀▄▀ █▀█ █▀█ █▀▀ █▀ █▀
-▄█ █▄█ █▄█ █▄█ █▀▄   ██▄ █░█ █▀▀ █▀▄ ██▄ ▄█ ▄█
+█▀ ▄▀█ █▄▄ █▀█ █▀█   █▀▀ ▀▄▀ █▀█ █▀█ █▀▀ █▀ █▀
+▄█ █▀█ █▄█ █▄█ █▀▄   ██▄ █░█ █▀▀ █▀▄ ██▄ ▄█ ▄█
 ''')
 
 
 def exibir_opcoes():
     print('1. Cadastrar restaurante')
     print('2. Listar restaurante')
-    print('3. Ativar restaurante')
+    print('3. Ativar | Desativar restaurante')
     print('4. Sair\n')
 
 
@@ -33,7 +32,7 @@ def escolher_opcoes():
             case 2: 
                 listar_restaurantes()
             case 3: 
-                ativar_restaurante()
+                alternar_estado_restaurante()
             case 4: 
                 finalizar_app()
             case _:
@@ -58,24 +57,29 @@ def finalizar_app():
 
 
 def gerarId():
-    if (len(restaurantes) == 0):
-        return 1
-    else:
-        return restaurantes[-1]['id'] + 1
+    return 1 if not restaurantes else (restaurantes[-1]['id'] + 1)
 
 
 def cadastrar_restaurante():
     exibir_subtitulos('Cadastro de novos restaurantes')
 
-    nome = input('Nome: ')
-    categoria = input('Categoria: ')
-    tipo_comida = input('Tipo de comida: ')
+    nome = input('Nome: ').strip()
 
+    while (nome == ''):
+        print('Nome do restaurante não pode ser vazio.')
+        nome = input('Nome: ').strip()
+
+    categoria = input('Categoria: ').strip()
+
+    while (categoria == ''):
+        print('Categoria do restaurante não pode ser vazio.')
+        categoria = input('Categoria: ').strip()
+    
+    # dicionário [{},{}] 
     restaurante = {
         'id': gerarId(),
         'nome': nome,
         'categoria': categoria,
-        'tipo_comida': tipo_comida,
         'ativo': False
     }
     
@@ -88,26 +92,36 @@ def cadastrar_restaurante():
 def listar_restaurantes():
     exibir_subtitulos('Lista de restaurantes')
     
-    lista_de_restaurantes = json.dumps(restaurantes, indent=4)
-
-    if restaurantes:
-        print(lista_de_restaurantes)
-        voltar_ao_menu_principal()
-    else:
-        print('Nenhum restaurante cadastrado!')
-        voltar_ao_menu_principal()
-
-
-def ativar_restaurante():
-    exibir_subtitulos('Ativando restaurantes')
-    
-    id = int(input('Digite o ID do restaurante: '))
-    
     for restaurante in restaurantes:
-        if (restaurante['id'] == id):
-            restaurante['ativo'] = True
+        nome = restaurante['nome']
+        categoria = restaurante['categoria']
+        ativo = restaurante['ativo']
+
+        print(f'- {nome} | {categoria} | {'ativo' if ativo  else 'inativo' }')
+
+    voltar_ao_menu_principal()
+
+
+def buscar_restaurante(nome):
+    for restaurante in restaurantes:
+        if restaurante['nome'] == nome:
+            return restaurante
+
+
+def alternar_estado_restaurante():
+    exibir_subtitulos('Alternando o estado do restaurante')
     
-    print(f'\nRestaurante com id {id} atualizado com sucesso!')
+    nome_restaurante = input('Digite o nome do restaurante: ').strip()
+    
+    restaurante = buscar_restaurante(nome_restaurante)
+
+    if restaurante:
+        restaurante['ativo'] = not restaurante['ativo']
+        mensagem = f'\nRestaurante {nome_restaurante} foi { 'ativado' if restaurante['ativo'] else 'desativado' } com sucesso!'
+        print(mensagem)
+    else:
+        print(f'\nNenhum restaurante encontrado!')
+
     voltar_ao_menu_principal()
 
 
