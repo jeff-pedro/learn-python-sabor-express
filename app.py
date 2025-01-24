@@ -132,7 +132,7 @@ def buscar_restaurante(nome):
 def alternar_estado_restaurante():
     exibir_subtitulos('Alternando o estado do restaurante')
     
-    nome_restaurante = input('Digite o nome do restaurante: ').strip()
+    nome_restaurante = input('Digite o nome do restaurante: ').strip().upper()
     
     restaurante = buscar_restaurante(nome_restaurante)
 
