@@ -60,21 +60,20 @@ def gerarId():
     return 1 if not restaurantes else (restaurantes[-1]['id'] + 1)
 
 
+def obter_input_valido(campo):
+    valor = input(f'{campo}: ').strip().upper()
+    while not valor:
+        print(f'{campo} do restaurante não pode ser vazio.')
+        valor = input(f'{campo}: ').strip().upper()
+    return valor
+
+
 def cadastrar_restaurante():
     exibir_subtitulos('Cadastro de novos restaurantes')
 
-    nome = input('Nome: ').strip()
+    nome = obter_input_valido('Nome')
+    categoria = obter_input_valido('Categoria')
 
-    while (nome == ''):
-        print('Nome do restaurante não pode ser vazio.')
-        nome = input('Nome: ').strip()
-
-    categoria = input('Categoria: ').strip()
-
-    while (categoria == ''):
-        print('Categoria do restaurante não pode ser vazio.')
-        categoria = input('Categoria: ').strip()
-    
     # dicionário [{},{}] 
     restaurante = {
         'id': gerarId(),
