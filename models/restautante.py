@@ -23,7 +23,7 @@ class Restaurante:
         pass
 
     def alterar_status(self):
-        pass
+        self._ativo = not self._ativo
 
     @property
     def ativo(self):
@@ -32,6 +32,8 @@ class Restaurante:
 
 restaurante_guaco = Restaurante('Guaco', 'Fast-Food')
 restaurante_pizza = Restaurante('Pizza Express', 'Italiana')
+
+print(restaurante_guaco.alterar_status())
 
 print(Restaurante.listar())
 
