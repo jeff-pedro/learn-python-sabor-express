@@ -29,13 +29,5 @@ class Restaurante:
     def ativo(self):
         return '☒' if self._ativo else '❏'
 
-
-restaurante_guaco = Restaurante('guaco', 'fast-food')
-restaurante_pizza = Restaurante('pizza express', 'italiana')
-
-print(restaurante_guaco.alternar_status())
-
-print(Restaurante.listar())
-
 # vars() -> mostra dicionário com as propriedades do objeto/classe
 # dir() -> mostra lista com todos os atributos e métodos do objeto/classe
