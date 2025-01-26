@@ -1,3 +1,5 @@
+from models.avaliacao import Avaliacao
+
 class Restaurante:
     restaurantes = []
 
@@ -5,6 +7,7 @@ class Restaurante:
         self._nome = nome.title()
         self._categoria = categoria.title()
         self._ativo = ativo
+        self._avaliacao = []
         Restaurante.restaurantes.append(self)
 
     def __str__(self):
@@ -25,9 +28,11 @@ class Restaurante:
     def alternar_status(self):
         self._ativo = not self._ativo
 
+    def receber_avaliacao(self, cliente, nota):
+        avaliacao = Avaliacao(cliente, nota)
+        self._avaliacao.append(avaliacao)
+
+
     @property
     def ativo(self):
         return '☒' if self._ativo else '❏'
-
-# vars() -> mostra dicionário com as propriedades do objeto/classe
-# dir() -> mostra lista com todos os atributos e métodos do objeto/classe
