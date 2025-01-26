@@ -22,7 +22,7 @@ class Restaurante:
     def cadastrar(restaurantes):
         pass
 
-    def alterar_status(self):
+    def alternar_status(self):
         self._ativo = not self._ativo
 
     @property
@@ -33,7 +33,7 @@ class Restaurante:
 restaurante_guaco = Restaurante('guaco', 'fast-food')
 restaurante_pizza = Restaurante('pizza express', 'italiana')
 
-print(restaurante_guaco.alterar_status())
+print(restaurante_guaco.alternar_status())
 
 print(Restaurante.listar())
 
