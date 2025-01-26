@@ -13,13 +13,14 @@ class Restaurante:
     def __str__(self):
         return f'{self._nome} | {self._categoria}'
 
-    def listar():
+    @classmethod
+    def listar(cls):
         print(f'{"NOME DO RESTAURANTE".ljust(25)} | {"CATEGORIA".ljust(25)} | {"AVALIAÇÃO".ljust(25)} | STATUS')
         print(f'{"-" * 25} | {"-" * 25} | {"-" * 25} | {"-" * 9}')
         
 
-        for restaurante in Restaurante.restaurantes:
-            print(f'{restaurante._nome.ljust(25)} | {restaurante._categoria.ljust(25)} | {restaurante.avaliacoes.ljust(25)} | {restaurante.ativo}')
+        for restaurante in cls.restaurantes:
+            print(f'{restaurante._nome.ljust(25)} | {restaurante._categoria.ljust(25)} | {str(restaurante.media_avaliacoes).ljust(25)} | {restaurante.ativo}')
         
         return ''
     
@@ -33,14 +34,26 @@ class Restaurante:
         avaliacao = Avaliacao(cliente, nota)
         self._avaliacao.append(avaliacao)
 
-    @property
-    def avaliacoes(self):
-        media = 0
-        
-        for avaliacao in self._avaliacao:
-            media += avaliacao._nota / len(self._avaliacao)
+    @property # para deixar o método disponível para ser lido como propriedade do objeto 
+    def media_avaliacoes(self):
+        if not self._avaliacao:
+            return 0
 
-        return str(media)
+        soma_das_notas = sum(avaliacao._nota for avaliacao in self._avaliacao)
+        quantidade_de_notas = len(self._avaliacao)
+        media = round(soma_das_notas / quantidade_de_notas, 1)
+        
+        return media
+
+    """ solução 2 """
+    # @property
+    # def media_avaliacoes(self):
+    #     media = 0
+        
+    #     for avaliacao in self._avaliacao:
+    #         media += avaliacao._nota / len(self._avaliacao)
+
+    #     return media
 
 
     @property

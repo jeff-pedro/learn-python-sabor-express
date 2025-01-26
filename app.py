@@ -1,13 +1,13 @@
 from models.restautante import Restaurante
 
 restaurante_guaco = Restaurante('guaco', 'mexicana')
+restaurante_praca = Restaurante('praça', 'gourmet')
 
 # Avaliações
-# restaurante_guaco.receber_avaliacao('Jack', 5)
-# restaurante_guaco.receber_avaliacao('Mirian', 4.5)
-# restaurante_guaco.receber_avaliacao('Emy', 4)
+restaurante_guaco.receber_avaliacao('Jack', 5)
+restaurante_guaco.receber_avaliacao('Mirian', 4.5)
+restaurante_guaco.receber_avaliacao('Emy', 4)
 
-# print(restaurante_guaco._avaliacao)
 print(Restaurante.listar())
 
 def main():
