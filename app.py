@@ -1,14 +1,23 @@
 from models.restautante import Restaurante
+from models.menu import Menu
 
-restaurante_guaco = Restaurante('guaco', 'mexicana')
-restaurante_praca = Restaurante('praça', 'gourmet')
+menu = Menu()
 
-# Avaliações
-restaurante_guaco.receber_avaliacao('Jack', 5)
-restaurante_guaco.receber_avaliacao('Mirian', 4.5)
-restaurante_guaco.receber_avaliacao('Emy', 4)
+menu.exibir_menu()
 
-print(Restaurante.listar())
+# restaurante_guaco = Restaurante('guaco', 'mexicana')
+# restaurante_praca = Restaurante('praça', 'gourmet')
+
+
+# # Avaliações
+# restaurante_guaco.receber_avaliacao('Jack', 5)
+# restaurante_guaco.receber_avaliacao('Mirian', 4.5)
+# restaurante_guaco.receber_avaliacao('Emy', 4)
+# 
+
+# Restaurante.cadastrar(restaurante_guaco)
+# Restaurante.cadastrar(restaurante_praca)
+# print(Restaurante.listar())
 
 def main():
     pass

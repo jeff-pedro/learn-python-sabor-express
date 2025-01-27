@@ -17,7 +17,6 @@ class Restaurante:
         self._categoria = categoria.title()
         self._ativo = ativo
         self._avaliacao = []
-        Restaurante.restaurantes.append(self)
 
     def __str__(self):
         """ Retorna uma representação em string do restaurante. """
@@ -66,3 +65,19 @@ class Restaurante:
     def ativo(self):
         """ Retorna um simbolo indicando o estado de atividade do restaurante. """
         return '☒' if self._ativo else '❏'
+    
+    @classmethod
+    def cadastrar(cls, restaurante):
+        ''' 
+        Essa função é responsável por cadastrar um novo restaurante
+
+        Inputs:
+            Nome do restaurante
+            Categoria
+
+        Output: 
+            Adiciona um novo restaurante a lista de restaurantes
+        '''
+        cls.restaurantes.append(restaurante)
+        print(f'\nRestaurante {restaurante._nome} foi cadastrado com sucesso!')
+
