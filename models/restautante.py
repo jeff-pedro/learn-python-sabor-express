@@ -45,17 +45,6 @@ class Restaurante:
         
         return media
 
-    """ solução 2 """
-    # @property
-    # def media_avaliacoes(self):
-    #     media = 0
-        
-    #     for avaliacao in self._avaliacao:
-    #         media += avaliacao._nota / len(self._avaliacao)
-
-    #     return media
-
-
     @property
     def ativo(self):
         return '☒' if self._ativo else '❏'
