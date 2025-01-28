@@ -55,20 +55,22 @@ class Menu:
                     Restaurante.listar()
                     cls.voltar_ao_menu_principal()
                 case 3:
-                    try:
-                        cls.exibir_subtitulos('Avaliando o restaurante')
-                        nome_restaurante = input('Digite o nome do restaurante: ').strip().upper()
-                        restaurante = Restaurante.buscar_por_nome(nome_restaurante)
+                    cls.exibir_subtitulos('Avaliando o restaurante')
+                    nome_restaurante = input('Digite o nome do restaurante: ').strip().upper()
+                    restaurante = Restaurante.buscar_por_nome(nome_restaurante)
+
+                    if restaurante:
                         nota = int(input('Digite a nota do restaurante (0 a 5): '))
-                        restaurante.receber_avaliacao('Anônimo', nota) if restaurante else print('\nNenhum restaurante encontrado.')
-                        cls.voltar_ao_menu_principal()
-                    except Exception as e:
-                        print(e)
+                        restaurante.receber_avaliacao('Anônimo', nota)
+                    else:
+                        print('\nNenhum restaurante encontrado.')
+
+                    cls.voltar_ao_menu_principal()
                 case 4:
                     cls.exibir_subtitulos('Alternando o estado do restaurante')
                     nome_restaurante = input('Digite o nome do restaurante: ').strip().upper()
                     restaurante = Restaurante.buscar_por_nome(nome_restaurante)
-                    restaurante.alternar_status() if restaurante else print('\nNenhum restaurante encontrado.')
+                    restaurante.alternar_status() if restaurante else print('\nNenhum restaurante encontrado.') 
                     cls.voltar_ao_menu_principal()
                 case 5: 
                     cls.finalizar_app()
@@ -121,16 +123,6 @@ class Menu:
         print(linha)
         print()
 
-    @property
-    def id(cls):
-        '''
-        Gera um identificador único para cada restaurante
-
-        Outputs:
-            int: um número inteiro único e sequencial 
-        '''
-        return 1 if not cls.restaurantes else (cls.restaurantes[-1]['id'] + 1)
-    
 
     @classmethod
     def obter_input_valido(cls, campo):
