@@ -27,11 +27,11 @@ class Restaurante:
     @classmethod
     def listar(cls):
         """ Exibe uma lista formatada de todos os restaurantes. """
-        print(f'{"NOME DO RESTAURANTE".ljust(25)} | {"CATEGORIA".ljust(25)} | {"AVALIAÇÃO".ljust(25)} | STATUS')
-        print(f'{"-" * 25} | {"-" * 25} | {"-" * 25} | {"-" * 9}')
+        print(f'{"NOME DO RESTAURANTE".ljust(20)} | {"CATEGORIA".ljust(20)} | {"AVALIAÇÃO".ljust(20)} | STATUS')
+        print(f'{"-" * 20} | {"-" * 20} | {"-" * 20} | {"-" * 9}')
 
         for restaurante in cls.restaurantes:
-            print(f'{restaurante._nome.ljust(25)} | {restaurante._categoria.ljust(25)} | {str(restaurante.media_avaliacoes).ljust(25)} | {restaurante.ativo}')
+            print(f'{restaurante._nome.ljust(20)} | {restaurante._categoria.ljust(20)} | {str(restaurante.media_avaliacoes).ljust(20)} | {restaurante.ativo}')
         return ''
     
 
