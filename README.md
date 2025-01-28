@@ -22,7 +22,7 @@ python3 app.py
 ```
 
 <p align="center">
-  <img src="sabor-express.gif" alt="animated" width=600 />
+  <img src="./docs/img/sabor-express.gif" alt="animated" width=600 />
 </p>
 
 ## Releases
