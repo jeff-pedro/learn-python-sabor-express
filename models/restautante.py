@@ -17,26 +17,29 @@ class Restaurante:
         self._categoria = categoria.title()
         self._ativo = ativo
         self._avaliacao = []
-        Restaurante.restaurantes.append(self)
+
 
     def __str__(self):
         """ Retorna uma representação em string do restaurante. """
         return f'{self._nome} | {self._categoria}'
 
+
     @classmethod
     def listar(cls):
         """ Exibe uma lista formatada de todos os restaurantes. """
-        print(f'{"NOME DO RESTAURANTE".ljust(25)} | {"CATEGORIA".ljust(25)} | {"AVALIAÇÃO".ljust(25)} | STATUS')
-        print(f'{"-" * 25} | {"-" * 25} | {"-" * 25} | {"-" * 9}')
-        
+        print(f'{"NOME DO RESTAURANTE".ljust(20)} | {"CATEGORIA".ljust(20)} | {"AVALIAÇÃO".ljust(20)} | STATUS')
+        print(f'{"-" * 20} | {"-" * 20} | {"-" * 20} | {"-" * 9}')
 
         for restaurante in cls.restaurantes:
-            print(f'{restaurante._nome.ljust(25)} | {restaurante._categoria.ljust(25)} | {str(restaurante.media_avaliacoes).ljust(25)} | {restaurante.ativo}')
+            print(f'{restaurante._nome.ljust(20)} | {restaurante._categoria.ljust(20)} | {str(restaurante.media_avaliacoes).ljust(20)} | {restaurante.ativo}')
         return ''
     
+
     def alternar_status(self):
         """ Altera o estado de atividade do restaurante """
         self._ativo = not self._ativo
+        print(f'\nRestaurante {self._nome} foi { 'ATIVADO' if self._ativo else 'DESATIVADO' } com sucesso!')
+    
 
     def receber_avaliacao(self, cliente, nota):
         """
@@ -50,6 +53,7 @@ class Restaurante:
             avaliacao = Avaliacao(cliente, nota)
             self._avaliacao.append(avaliacao)
 
+
     @property # para deixar o método disponível para ser lido como propriedade do objeto 
     def media_avaliacoes(self):
         """ Calcula e retorna a média das avaliações do restaurante. """
@@ -62,7 +66,41 @@ class Restaurante:
         
         return media
 
+
     @property
     def ativo(self):
         """ Retorna um simbolo indicando o estado de atividade do restaurante. """
         return '☒' if self._ativo else '❏'
+    
+
+    def cadastrar(self):
+        ''' 
+        Essa função é responsável por cadastrar um novo restaurante
+
+        Inputs:
+            Objeto Restaurante
+
+        Output: 
+            Adiciona um novo restaurante a lista de restaurantes
+        '''
+        Restaurante.restaurantes.append(self)
+        print(f'\nRestaurante {self._nome} foi cadastrado com sucesso!')
+
+
+    @classmethod
+    def buscar_por_nome(cls, nome):
+        '''
+        Busca restaurante na lista de restaurantes
+
+        Inputs:
+            nome (str): nome do restaurante a ser buscado na lista
+
+        Outputs:
+            objeto: objeto que representa um restaurante   
+        '''
+        if not cls.restaurantes:
+            return False
+
+        for restaurante in cls.restaurantes:
+            if restaurante._nome.upper() == nome:
+                return restaurante
