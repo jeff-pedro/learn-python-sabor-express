@@ -49,12 +49,16 @@ class Menu:
                     restaurante = Restaurante(nome, categoria)
                     Restaurante.cadastrar(restaurante)
                     cls.voltar_ao_menu_principal()
-                case 2: 
-                    # listar_restaurantes()
-                    pass
-                case 3: 
-                    # alternar_estado_restaurante()
-                    pass
+                case 2:
+                    cls.exibir_subtitulos('Lista de restaurantes')
+                    Restaurante.listar()
+                    cls.voltar_ao_menu_principal()
+                case 3:
+                    cls.exibir_subtitulos('Alternando o estado do restaurante')
+                    nome_restaurante = input('Digite o nome do restaurante: ').strip().upper()
+                    restaurante = Restaurante.buscar_por_nome(nome_restaurante)
+                    restaurante.alternar_status() if restaurante else print('\nNenhum restaurante encontrado.')
+                    cls.voltar_ao_menu_principal()
                 case 4: 
                     cls.finalizar_app()
                     pass

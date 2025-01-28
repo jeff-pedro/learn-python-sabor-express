@@ -171,7 +171,7 @@ def listar_restaurantes():
 
     voltar_ao_menu_principal()
 
-
+@classmethod
 def buscar_restaurante(nome):
     '''
     Busca restaurante na lista de restaurantes
