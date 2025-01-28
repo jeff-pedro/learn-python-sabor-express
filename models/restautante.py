@@ -1,4 +1,6 @@
 from models.avaliacao import Avaliacao
+from models.cardapio.bebida import Bebida
+from models.cardapio.prato import Prato
 
 class Restaurante:
     """ Representa um restaurantes e suas caracteristicas. """
@@ -17,6 +19,8 @@ class Restaurante:
         self._categoria = categoria.title()
         self._ativo = ativo
         self._avaliacao = []
+        self._cardapio = []
+
 
 
     def __str__(self):
@@ -34,6 +38,13 @@ class Restaurante:
             print(f'{restaurante._nome.ljust(20)} | {restaurante._categoria.ljust(20)} | {str(restaurante.media_avaliacoes).ljust(20)} | {restaurante.ativo}')
         return ''
     
+    def listar_cardapio(self):
+        print(f'{"NOME".ljust(20)} | {"PREÇO".ljust(20)}')
+        print(f'{"-" * 20} | {"-" * 20}')
+
+        for cardapio in self._cardapio:
+            print(f'{cardapio._nome.ljust(20)} | {str(cardapio._preco).ljust(20)} ')
+        return ''
 
     def alternar_status(self):
         """ Altera o estado de atividade do restaurante """
@@ -104,3 +115,23 @@ class Restaurante:
         for restaurante in cls.restaurantes:
             if restaurante._nome.upper() == nome:
                 return restaurante
+
+
+    def adicionar_bebida_no_cardapio(self, bebida):
+        self._cardapio.append(bebida)
+
+
+    def adicionar_prato_no_cardapio(self, prato):
+        self._cardapio.append(prato)
+
+
+    # def adicionar_bebida_no_cardapio(self, nome, preco, tamanho):
+    #     bebida = Bebida(nome, preco, tamanho)
+    #     self._cardapio.append(bebida)
+    #     print(f'{nome} adicionado(a) com sucesso\n')
+
+
+    # def adicionar_prato_no_cardapio(self, nome, preco, descricao):
+    #     prato = Prato(nome, preco, descricao)
+    #     self._cardapio.append(prato)
+    #     print(f'{nome} adicionado(a) com sucesso\n')
