@@ -27,8 +27,9 @@ class Menu:
         ''' Exibe as opções de funcionalidades do aplicativo no menu principal '''
         print('1. Cadastrar restaurante')
         print('2. Listar restaurante')
-        print('3. Ativar | Desativar restaurante')
-        print('4. Sair\n')
+        print('3. Avaliar restaurante')
+        print('4. Ativar | Desativar restaurante')
+        print('5. Sair\n')
 
 
     @classmethod
@@ -47,19 +48,29 @@ class Menu:
                     nome = cls.obter_input_valido('Nome')
                     categoria = cls.obter_input_valido('Categoria')
                     restaurante = Restaurante(nome, categoria)
-                    Restaurante.cadastrar(restaurante)
+                    restaurante.cadastrar()
                     cls.voltar_ao_menu_principal()
                 case 2:
                     cls.exibir_subtitulos('Lista de restaurantes')
                     Restaurante.listar()
                     cls.voltar_ao_menu_principal()
                 case 3:
+                    try:
+                        cls.exibir_subtitulos('Avaliando o restaurante')
+                        nome_restaurante = input('Digite o nome do restaurante: ').strip().upper()
+                        restaurante = Restaurante.buscar_por_nome(nome_restaurante)
+                        nota = int(input('Digite a nota do restaurante (0 a 5): '))
+                        restaurante.receber_avaliacao('Anônimo', nota) if restaurante else print('\nNenhum restaurante encontrado.')
+                        cls.voltar_ao_menu_principal()
+                    except Exception as e:
+                        print(e)
+                case 4:
                     cls.exibir_subtitulos('Alternando o estado do restaurante')
                     nome_restaurante = input('Digite o nome do restaurante: ').strip().upper()
                     restaurante = Restaurante.buscar_por_nome(nome_restaurante)
                     restaurante.alternar_status() if restaurante else print('\nNenhum restaurante encontrado.')
                     cls.voltar_ao_menu_principal()
-                case 4: 
+                case 5: 
                     cls.finalizar_app()
                     pass
                 case _:

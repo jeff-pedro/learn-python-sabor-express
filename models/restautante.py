@@ -73,8 +73,7 @@ class Restaurante:
         return '☒' if self._ativo else '❏'
     
 
-    @classmethod
-    def cadastrar(cls, restaurante):
+    def cadastrar(self):
         ''' 
         Essa função é responsável por cadastrar um novo restaurante
 
@@ -84,8 +83,8 @@ class Restaurante:
         Output: 
             Adiciona um novo restaurante a lista de restaurantes
         '''
-        cls.restaurantes.append(restaurante)
-        print(f'\nRestaurante {restaurante._nome} foi cadastrado com sucesso!')
+        Restaurante.restaurantes.append(self)
+        print(f'\nRestaurante {self._nome} foi cadastrado com sucesso!')
 
 
     @classmethod
