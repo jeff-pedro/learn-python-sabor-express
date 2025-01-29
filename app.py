@@ -1,5 +1,6 @@
 # from models.menu import Menu
 import requests
+import os
 
 url = 'https://guilhermeonrails.github.io/api-restaurantes/restaurantes.json'
 response = requests.get(url)
@@ -21,7 +22,9 @@ if response.status_code == 200:
             'description': item['description']
         })
 
-        print(dados_restaurante['McDonald’s'])
+        os.write(0, dados_restaurante[nome_do_restaurante])
+
+        # print(dados_restaurante['McDonald’s'])
 
 
 else:
