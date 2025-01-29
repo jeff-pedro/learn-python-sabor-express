@@ -1,6 +1,7 @@
 from models.avaliacao import Avaliacao
 from models.cardapio.bebida import Bebida
 from models.cardapio.prato import Prato
+from models.cardapio.item_cardapio import ItemCardapio
 
 class Restaurante:
     """ Representa um restaurantes e suas caracteristicas. """
@@ -38,14 +39,7 @@ class Restaurante:
             print(f'{restaurante._nome.ljust(20)} | {restaurante._categoria.ljust(20)} | {str(restaurante.media_avaliacoes).ljust(20)} | {restaurante.ativo}')
         return ''
     
-    def listar_cardapio(self):
-        print(f'{"NOME".ljust(20)} | {"PREÇO".ljust(20)}')
-        print(f'{"-" * 20} | {"-" * 20}')
-
-        for cardapio in self._cardapio:
-            print(f'{cardapio._nome.ljust(20)} | {str(cardapio._preco).ljust(20)} ')
-        return ''
-
+    
     def alternar_status(self):
         """ Altera o estado de atividade do restaurante """
         self._ativo = not self._ativo
@@ -116,22 +110,28 @@ class Restaurante:
             if restaurante._nome.upper() == nome:
                 return restaurante
 
+    def adicionar_no_cardapio(self, item):
+        if isinstance(item, ItemCardapio):
+            self._cardapio.append(item)
 
-    def adicionar_bebida_no_cardapio(self, bebida):
-        self._cardapio.append(bebida)
+    @property
+    def exibir_cardapio(self):
+        print(f'Cardapio do restaurante {self._nome}\n')
+
+        for i, item in enumerate(self._cardapio, start=1):
+            preco_string = f'{item._preco:.2f}'
+            preco_formatado = preco_string.replace('.', ',')
+
+            if hasattr(item, '_descricao'):
+                mensagem = f'{i}. Nome: {item._nome} | Preço: R$ {preco_formatado} | Descrição: {item._descricao}'
+            else:
+                mensagem = f'{i}. Nome: {item._nome} | Preço: R$ {preco_formatado} | Tamanho: {item._tamanho}'
+            
+            print(mensagem)
 
 
-    def adicionar_prato_no_cardapio(self, prato):
-        self._cardapio.append(prato)
+            # complemento = f'Tamanho: {item._tamanho}' if hasattr(item, '_tamanho') else f'Descrição: {item._descricao}'
+            # mensagem = f'{i}. Nome: {item._nome} | Preço: R$ {preco_formatado} | {complemento}'
+            # print(mensagem)
+        return ''
 
-
-    # def adicionar_bebida_no_cardapio(self, nome, preco, tamanho):
-    #     bebida = Bebida(nome, preco, tamanho)
-    #     self._cardapio.append(bebida)
-    #     print(f'{nome} adicionado(a) com sucesso\n')
-
-
-    # def adicionar_prato_no_cardapio(self, nome, preco, descricao):
-    #     prato = Prato(nome, preco, descricao)
-    #     self._cardapio.append(prato)
-    #     print(f'{nome} adicionado(a) com sucesso\n')

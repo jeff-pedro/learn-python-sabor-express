@@ -12,15 +12,12 @@ prato_lasanha = Prato('Lasanha', 30.0, 'Lasanha duo com molho vemelho e branco')
 
 restaurante_guaco = Restaurante('Guaco', 'mexicano')
 
-restaurante_guaco.adicionar_bebida_no_cardapio(bebida_suco)
-restaurante_guaco.adicionar_prato_no_cardapio(prato_lasanha)
-
-print(restaurante_guaco.listar_cardapio())
-
+restaurante_guaco.adicionar_no_cardapio(bebida_suco)
+restaurante_guaco.adicionar_no_cardapio(prato_lasanha)
 
 def main():
     # Menu.exibir_menu()
-    pass
+    restaurante_guaco.exibir_cardapio
 
 if __name__ == '__main__':
     main()
