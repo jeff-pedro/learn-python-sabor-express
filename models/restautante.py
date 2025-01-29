@@ -121,8 +121,23 @@ class Restaurante:
         for i, item in enumerate(self._cardapio, start=1):
             preco_string = f'{item._preco:.2f}'
             preco_formatado = preco_string.replace('.', ',')
-            complemento = f'Tamanho: {item._tamanho}' if hasattr(item, '_tamanho') else f'Descrição: {item._descricao}'
+
+            # if hasattr(item, '_tamanho') and hasattr(item, '_tipo'):
+            #     complemento = f'Tipo: {item._tipo} | Tamanho: {item._tamanho} | Descrição: {item._descricao}'
+            # elif hasattr(item, '_tamanho'):
+            #     complemento = f'Tamanho: {item._tamanho}' 
+            # else:
+            #     complemento = f'Descrição: {item._descricao}'
+            
+            if isinstance(item, Bebida):
+                complemento = f'Tamanho: {item._tamanho}' 
+            elif isinstance(item, Prato):
+                complemento = f'Descrição: {item._descricao}'
+            else:
+                 complemento = f'Tipo: {item._tipo} | Tamanho: {item._tamanho} | Descrição: {item._descricao}'
+
             mensagem = f'{i}. Nome: {item._nome} | Preço: R$ {preco_formatado} | {complemento}'
+            
             print(mensagem)
         return ''
 
