@@ -1,6 +1,7 @@
 from models.cardapio.item_cardapio import ItemCardapio
 
 class Sobremesa(ItemCardapio):
+    """ Represensa o item sobremesa do cardápio """
     def __init__(self, nome, preco, tipo, tamanho, descricao):
         super().__init__(nome, preco)
         self._tipo = tipo

@@ -110,12 +110,15 @@ class Restaurante:
             if restaurante._nome.upper() == nome:
                 return restaurante
 
+
     def adicionar_no_cardapio(self, item):
         if isinstance(item, ItemCardapio):
             self._cardapio.append(item)
 
+
     @property
     def exibir_cardapio(self):
+        """ Exibe uma lista formatada do cardápio de um restaurnte. """
         print(f'Cardapio do restaurante {self._nome}\n')
 
         for i, item in enumerate(self._cardapio, start=1):

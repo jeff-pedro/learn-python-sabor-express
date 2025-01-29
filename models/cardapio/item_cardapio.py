@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 
 class ItemCardapio(ABC):
+    """ Representa os itens do cardápio """
     def __init__(self, nome, preco):
         self._nome = nome
         self._preco = preco
