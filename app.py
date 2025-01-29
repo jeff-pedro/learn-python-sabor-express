@@ -1,28 +1,36 @@
 # from models.menu import Menu
-from models.cardapio.prato import Prato
-from models.cardapio.bebida import Bebida
-from models.cardapio.sobremesa import Sobremesa
-from models.restautante import Restaurante
+import requests
 
-# restaurante_guaco.adicionar_prato_no_cardapio('Burrito', 30, 'Burrito reacheado com barbacoa, queijo e guaca-mole.')
-# restaurante_guaco.adicionar_bebida_no_cardapio('Suco de Laranja', 8, 'grande')
+url = 'https://guilhermeonrails.github.io/api-restaurantes/restaurantes.json'
+response = requests.get(url)
 
-bebida_suco = Bebida('Suco de Laranja', 5.0, 'grande')
-prato_lasanha = Prato('Lasanha', 30.0, 'Lasanha duo com molho vemelho e branco.')
-sobremesa_pudim = Sobremesa('Pudim de Leite', 15, 'doce', 'médio', 'Pudim de leite condensado cremoso com calda de caramelo.')
+if response.status_code == 200:
+    dados_json = response.json()
+    dados_restaurante = {}
 
-bebida_suco.aplicar_desconto()
-prato_lasanha.aplicar_desconto()
+    for item in dados_json:
 
-restaurante_guaco = Restaurante('Guaco', 'mexicano')
+        nome_do_restaurante = item['Company']
+        
+        if not nome_do_restaurante in dados_restaurante:
+            dados_restaurante[nome_do_restaurante] = []
 
-restaurante_guaco.adicionar_no_cardapio(bebida_suco)
-restaurante_guaco.adicionar_no_cardapio(prato_lasanha)
-restaurante_guaco.adicionar_no_cardapio(sobremesa_pudim)
+        dados_restaurante[nome_do_restaurante].append({
+            'item': item['Item'],
+            'price': item['price'],
+            'description': item['description']
+        })
+
+        print(dados_restaurante['McDonald’s'])
+
+
+else:
+    print(response.status_code)
+
 
 def main():
     # Menu.exibir_menu()
-    restaurante_guaco.exibir_cardapio
+    pass
 
 if __name__ == '__main__':
     main()
