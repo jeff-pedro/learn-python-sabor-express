@@ -1,6 +1,6 @@
 import os
 
-class Display():
+class Display:
     ''' Disponibiliza métodos para exibição de mensagens formatadas de texto. '''
 
     @staticmethod
@@ -16,7 +16,7 @@ class Display():
 
          
     @staticmethod
-    def exibir_subtitulos(texto):
+    def exibir_subtitulo(texto):
         ''' 
         Exibe um titulo estilizado no terminal
 
@@ -30,5 +30,5 @@ class Display():
         print(linha)
         print()
 
-        
+
 
