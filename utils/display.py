@@ -2,16 +2,18 @@ import os
 
 class Display:
     ''' Disponibiliza métodos para exibição de mensagens formatadas de texto. '''
-
+    linha = '*' * 70
+    
     @staticmethod
     def exibir_nome_programa():
         ''' Imprime o nome estilizado do programa no terminal ''' 
-        print('*' * 70)
+        
+        print(Display.linha)
         print('''
             █▀ ▄▀█ █▄▄ █▀█ █▀█   █▀▀ ▀▄▀ █▀█ █▀█ █▀▀ █▀ █▀
             ▄█ █▀█ █▄█ █▄█ █▀▄   ██▄ █░█ █▀▀ █▀▄ ██▄ ▄█ ▄█
         ''')
-        print('*' * 70)
+        print(Display.linha)
         print()
 
          
@@ -24,10 +26,12 @@ class Display:
             texto (str): texto do subtítulo
         '''
         os.system('clear')        
-        linha = '*' * len(texto)
-        print(linha)
-        print(texto.upper())
-        print(linha)
+        # linha = '*' * len(texto)
+
+        centralizado = int(len(Display.linha))
+        print(Display.linha)
+        print(texto.upper().center(centralizado))
+        print(Display.linha)
         print()
 
 
