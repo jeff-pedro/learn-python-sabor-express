@@ -4,28 +4,52 @@ Aplicativo CLI desenvolvido durante as aulas de Python da [Alura]().
 
 ## Descrição
 
-Sabor Express é um aplicativo CLI simples para cadastro de restaurantes. Entre outras funcionalidas está a listagem, avaliaçao e ativar ou desativar restaurantes.
+Sabor Express é um aplicativo CLI simples para cadastro de restaurantes. Entre outras funcionalidas está a listagem, avaliaçao e ativar ou desativar restaurantes. Também está disponível um API para acesso aos dados dos restaurantes.
 
 **Versões:**
 
 * [v1.0.0](#v100)
 * [v2.0.0](#v200)
+* [v3.0.0](#v200)
 
 ## Pré-requisitos
-
-* Python 3.12.0
+* [venv](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/)
 
 ## 🚀 Quick Start
 
 ```bash
-python3 app.py
+# ativa ambiente virtual
+source venv/bin/activate
+
+# instala as dependências
+pip install -r requirements.txt
+
+# executa a aplicação
+python app.py
 ```
 
 <p align="center">
   <img src="./docs/img/sabor-express.gif" alt="animated" width=600 />
 </p>
 
-## Releases
+## ⚙️ API
+
+```bash
+# ativa ambiente virtual
+source venv/bin/activate
+
+# instala as dependências
+pip install -r requirements.txt
+
+# executa o servidor
+uvicorn main:app --reload 
+```
+
+## 📖 Documentação da API
+
+* [Sabor Express API](http://localhost:8000/docs#/)
+
+## 🆕 Releases
 
 ### [v1.0.0](https://github.com/jeff-pedro/learn-python-sabor-express/tree/v1.0.0)
 
@@ -70,6 +94,23 @@ Nessa versão foi explorado o paradigma da Programação Orientada a Objetos. A 
 * Receber nota de avaliação do restaurante escolhido.
 * Mostrar avalições ao listar os restaurantes.
 
-## Documentação
+### [v3.0.0](https://github.com/jeff-pedro/learn-python-sabor-express/tree/v3.0.0)
 
-* http://localhost:8000/docs#/
+**Novas funcionalidades:**
+
+* Adicionar cardápio aos restaurantes.
+* Listar cardápio por restarante.
+* [Endpoint](localhost:8000/docs) para acessar API da aplicação.
+* Melhoria na organização do código.
+
+**Tópicos que foram estudados:**
+
+* uso dos métodos `isinstance()` e `hasattr()`
+* mais sobre `property` para leitura dado
+* métodos abstrados através do decorator `@abstractmethod`
+* aplicação do **polimorfismo**
+* uso de ambiente vitualizado com `env`
+* documentar e compartilhar dependências com arquivos `requirements.txt`
+* realizar requisições com o módulo `requests`
+* salvar dados em arquivos através do método `with open()`
+* criação de API com **FastAPI**
