@@ -2,16 +2,21 @@ import os
 from models.restautante import Restaurante
 
 class Menu:
-    """ Representa o menu principal """
+    ''' Representa o menu principal '''
     restaurantes = []
 
     @classmethod
     def exibir_menu(cls):
-        os.system('clear')
+        cls.limpar_tela()
         cls.exibir_nome()
         cls.exibir_opcoes()
         cls.escolher_opcoes()
 
+    @staticmethod
+    def limpar_tela():
+        os.system('clear')
+
+    @staticmethod
     def exibir_nome():
         ''' Imprime o nome estilizado do programa no terminal ''' 
         print('*' * 70)
@@ -22,24 +27,21 @@ class Menu:
         print('*' * 70)
         print()
 
-
+    @staticmethod
     def exibir_opcoes():
         ''' Exibe as opções de funcionalidades do aplicativo no menu principal '''
-        print('1. Cadastrar restaurante')
-        print('2. Listar restaurante')
-        print('3. Avaliar restaurante')
-        print('4. Ativar | Desativar restaurante')
-        print('5. Sair\n')
-
+        opcoes = [
+            '1. Cadastrar restaurante',
+            '2. Listar restaurante',
+            '3. Avaliar restaurante',
+            '4. Ativar | Desativar restaurante',
+            '5. Sair\n'
+        ]
+        print('\n'.join(opcoes))
 
     @classmethod
     def escolher_opcoes(cls):
-        '''
-        Solicita e executa a opção escolhida pelo usuário
-
-        Outputs:
-            Executa a opção escolhida pelo usuário 
-        '''
+        ''' Solicita e executa a opção escolhida pelo usuário '''
         try:
             opcao_escolhida = int(input('Escolha uma opção: '))
             match opcao_escolhida:
@@ -85,29 +87,22 @@ class Menu:
     def opcao_invalida(cls):
         ''' Exibe mensagem de opção inválida e retorna ao menu principal ''' 
         print('\nOpção inválida!')
-        print()
         cls.voltar_ao_menu_principal()
 
     
     @classmethod
     def voltar_ao_menu_principal(cls):
-        '''
-        Solicita uma tecla para voltar ao menu principal
-
-        Outputs:
-            Retorn ao menu principal
-        '''
+        ''' Solicita uma tecla para voltar ao menu principal '''
         input('\nPressione ENTER para voltar ao menu principal ')
-
         cls.exibir_menu()
 
-    
+    @staticmethod
     def finalizar_app():
         ''' Exibe mensagem de finalização do aplicativo '''
         os.system('clear');
         print('Finalizando o app...\n')
-        
     
+    @staticmethod
     def exibir_subtitulos(texto):
         ''' 
         Exibe um titulo estilizado no terminal
@@ -116,13 +111,11 @@ class Menu:
             texto (str): texto do subtítulo
         '''
         os.system('clear')
-
         linha = '*' * len(texto)
         print(linha)
         print(texto.upper())
         print(linha)
         print()
-
 
     @classmethod
     def obter_input_valido(cls, campo):
