@@ -1,5 +1,6 @@
 import os
 from models.restautante import Restaurante
+from services.restaurante_service import RestauranteService
 from utils.display import Display
 
 class Menu:
@@ -7,7 +8,7 @@ class Menu:
     restaurantes = []
 
     @classmethod
-    def exibir(cls):
+    def exibir_menu(cls):
         cls.limpar_tela()
         Display.exibir_nome_programa()
         cls.exibir_opcoes()
@@ -52,51 +53,30 @@ class Menu:
         Display.exibir_subtitulo('Cadastro de novos restaurantes')
         nome = cls.obter_input_valido('Nome')
         categoria = cls.obter_input_valido('Categoria')
-        restaurante = Menu.limpar_telastaurante(nome, categoria)
-        restaurante.cadastrar()
+        RestauranteService.cadastrar_restaurante(nome, categoria)
         cls.voltar_ao_menu_principal()
 
     @classmethod
     def listar_restaurante(cls):
         cls.limpar_tela()
-        Display.exibir_subtitulos('Lista de restaurantes')
+        Display.exibir_subtitulo('Lista de restaurantes')
         Restaurante.listar()
         cls.voltar_ao_menu_principal()
 
     @classmethod
     def avaliar_restaurante(cls):
         cls.limpar_tela()
-        Display.exibir_subtitulos('Avaliando o restaurante')
+        Display.exibir_subtitulo('Avaliando o restaurante')
         nome_restaurante = input('Digite o nome do restaurante: ').strip().upper()
-        restaurante = Restaurante.buscar_por_nome(nome_restaurante)
-
-        if restaurante:
-            try:
-                nota = int(input('Digite a nota do restaurante (0 a 5): '))
-                if 0 <= nota <= 5:
-                    restaurante.receber_avaliacao('Anônimo', nota)
-                else:
-                    print('\nNota inválida. Dever ser entre 0 e 5.')
-                
-            except ValueError:
-                print('\nNota inválida. Deve ser um número.')
-        else:
-            print('\nNenhum restaurante encontrado.')
-
+        RestauranteService.avaliar_restaurante(nome_restaurante)
         cls.voltar_ao_menu_principal()
 
     @classmethod
     def alternar_status_restaurante(cls):
-        cls.limpar_tela()
-        Display.exibir_subtitulos('Alternando o estado do restaurante')
+        cls.limpar_tela()        
+        Display.exibir_subtitulo('Alternando o estado do restaurante')
         nome_restaurante = input('Digite o nome do restaurante: ').strip().upper()
-        
-        restaurante = Restaurante.buscar_por_nome(nome_restaurante)
-        if restaurante:
-            restaurante.alternar_status()
-        else:
-            print('\nNenhum restaurante encontrado.') 
-        
+        RestauranteService.alternar_status_restaurante(nome_restaurante) 
         cls.voltar_ao_menu_principal()
 
     @classmethod
