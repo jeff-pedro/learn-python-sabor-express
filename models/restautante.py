@@ -5,7 +5,6 @@ from models.cardapio.item_cardapio import ItemCardapio
 
 class Restaurante:
     """ Representa um restaurantes e suas caracteristicas. """
-
     restaurantes = []
 
     def __init__(self, nome, categoria, ativo = False):
@@ -21,7 +20,6 @@ class Restaurante:
         self._ativo = ativo
         self._avaliacao = []
         self._cardapio = []
-
 
 
     def __str__(self):
@@ -55,11 +53,10 @@ class Restaurante:
 
         Parâmetros:
         - cliente (str): O nome do cliente que fez a avaliação
-        - nota (float): A nota atribuída ao restaurante (entre 0 e 5)
+        - nota (float): A nota atribuída ao restaurante
         """
-        if 0 < nota <= 5:
-            avaliacao = Avaliacao(cliente, nota)
-            self._avaliacao.append(avaliacao)
+        avaliacao = Avaliacao(cliente, nota)
+        self._avaliacao.append(avaliacao)
 
 
     @property # para deixar o método disponível para ser lido como propriedade do objeto 
