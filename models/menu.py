@@ -6,7 +6,7 @@ class Menu:
     restaurantes = []
 
     @classmethod
-    def exibir_menu(cls):
+    def exibir(cls):
         cls.limpar_tela()
         cls.exibir_nome()
         cls.exibir_opcoes()
@@ -53,7 +53,7 @@ class Menu:
                 5: cls.finalizar_app
             }
             opcoes.get(opcao_escolhida, cls.opcao_invalida)()
-        except:
+        except ValueError:
             cls.opcao_invalida()
         
     @classmethod
@@ -81,8 +81,15 @@ class Menu:
         restaurante = Restaurante.buscar_por_nome(nome_restaurante)
 
         if restaurante:
-            nota = int(input('Digite a nota do restaurante (0 a 5): '))
-            restaurante.receber_avaliacao('Anônimo', nota)
+            try:
+                nota = int(input('Digite a nota do restaurante (0 a 5): '))
+                if 0 <= nota <= 5:
+                    restaurante.receber_avaliacao('Anônimo', nota)
+                else:
+                    print('\nNota inválida. Dever ser entre 0 e 5.')
+                
+            except ValueError:
+                print('\nNota inválida. Deve ser um número.')
         else:
             print('\nNenhum restaurante encontrado.')
 
@@ -93,8 +100,13 @@ class Menu:
         cls.limpar_tela()
         cls.exibir_subtitulos('Alternando o estado do restaurante')
         nome_restaurante = input('Digite o nome do restaurante: ').strip().upper()
+        
         restaurante = Restaurante.buscar_por_nome(nome_restaurante)
-        restaurante.alternar_status() if restaurante else print('\nNenhum restaurante encontrado.') 
+        if restaurante:
+            restaurante.alternar_status()
+        else:
+            print('\nNenhum restaurante encontrado.') 
+        
         cls.voltar_ao_menu_principal()
 
     @classmethod
@@ -102,7 +114,6 @@ class Menu:
         ''' Exibe mensagem de opção inválida e retorna ao menu principal ''' 
         print('\nOpção inválida!')
         cls.voltar_ao_menu_principal()
-    
 
     @classmethod
     def voltar_ao_menu_principal(cls):
