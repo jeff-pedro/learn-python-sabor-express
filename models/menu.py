@@ -1,5 +1,6 @@
 import os
 from services.restaurante_service import RestauranteService
+from services.cardapio_service import CardapioService
 from utils.display import Display
 
 class Menu:
@@ -49,7 +50,7 @@ class Menu:
             opcoes.get(opcao_escolhida, cls.opcao_invalida)()
         except ValueError:
             cls.opcao_invalida()
-        
+
     @classmethod
     def cadastrar_restaurante(cls):
         cls.limpar_tela()
@@ -83,13 +84,91 @@ class Menu:
         cls.voltar_ao_menu_principal()
 
     @classmethod
-    def cadastrar_restaurante(cls):
-        pass
+    def cadastrar_cardapio(cls):
+        cls.limpar_tela()
+        Display.exibir_subtitulo(f'Cadastro de cardápio')
+        nome_restaurante = cls.obter_input_valido('Nome do restaurante')
+        tipo_cardapio = cls.obter_tipo_cardapio()
+        item = cls.criar_item_cardapio(tipo_cardapio)
+        CardapioService.adicionar_no_cardapio(nome_restaurante, item)
+        cls.voltar_ao_menu_principal()
 
     @classmethod
-    def listar_restaurante(cls):
-        pass
+    def criar_item_cardapio(cls, tipo):
+        opcoes = {
+            'prato': cls.criar_cardapio_prato,
+            'bebida': cls.criar_cardapio_bebida,
+            'sobremesa': cls.criar_cardapio_sobremesa
+        }
+        item = opcoes.get(tipo)()
+        return item
+    
+    @staticmethod
+    def criar_cardapio_prato():
+        nome = input('Nome do prato: ').strip().title()
+        preco = float(input('Preço do prato: '))
+        descricao = input('Descrição do prato: ').strip().title()
 
+        item = CardapioService.criar_item_prato(nome, preco, descricao)
+        return item
+
+    @staticmethod
+    def criar_cardapio_bebida():
+        nome = input('Nome da bebida: ').strip().title()
+        preco = float(input('Preço da bebida: '))
+        tamanho = input('Tamanho da bebida [grande, médio, pequeno]: ').strip().title()
+
+        item = CardapioService.criar_item_bebida(nome, preco, tamanho)
+        return item
+    
+    @staticmethod
+    def criar_cardapio_sobremesa():
+        nome = input('Nome da sobremesa: ').strip().title()
+        preco = float(input('Preço da sobremesa: '))
+        tipo = input('Tipo da sobremesa: ').strip().title()
+        tamanho = input('Tamanho da sobremesa [grande, médio, pequeno]: ').strip().title()
+        descricao = input('Descrição da sobremesa: ').strip().title()
+
+        item = CardapioService.criar_item_sobremesa(nome, preco, tipo, tamanho, descricao)
+        return item
+
+    @staticmethod
+    def exibir_opcoes_cardapio():
+        print('\nItens do Cardápio')
+        opcoes = [
+                '1. Prato',
+                '2. Bebida',
+                '3. Sobremesa',
+                '4. Voltar ao menu principal\n'
+            ]
+        print('\n'.join(opcoes))
+
+    @classmethod
+    def obter_tipo_cardapio(cls):
+        try:
+            cls.exibir_opcoes_cardapio()
+            opcao_escolhida = int(input('Escolha uma opção: '))
+            opcoes = {
+                1: 'prato',
+                2: 'bebida',
+                3: 'sobremesa',
+                4: 'sair'
+            }
+            if opcao_escolhida == 4:
+                cls.exibir_menu()
+
+            tipo = opcoes.get(opcao_escolhida)
+
+            if not tipo:
+                raise ValueError()
+            
+            return tipo
+        except ValueError:
+            cls.opcao_invalida()
+
+    @classmethod
+    def listar_cardapio(cls):
+        pass        
 
     @classmethod
     def opcao_invalida(cls):
@@ -122,6 +201,6 @@ class Menu:
         '''
         valor = input(f'{campo}: ').strip().upper()
         while not valor:
-            print(f'{campo} do restaurante não pode ser vazio.')
+            print(f'{campo} não pode ser vazio.')
             valor = input(f'{campo}: ').strip().upper()
         return valor
