@@ -13,6 +13,7 @@ Sabor Express é um aplicativo CLI simples para cadastro de restaurantes. Entre 
 * [v3.0.0](#v300)
 
 ## Pré-requisitos
+
 * [venv](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/)
 
 ## 🚀 Quick Start
@@ -117,3 +118,44 @@ Nessa versão foi explorado o paradigma da Programação Orientada a Objetos. A 
 * salvar dados em arquivos através do método `with open()`
 * criação de API com **FastAPI**
 * geração de documentação automatica através do *docs* e *redoc* do **Fast API**
+
+## Estrutura do Projeto
+
+Essa estrutura modulariza o código, separando responsabilidades e facilitando a manutenção e expansão do aplicativo.
+
+```bash
+sabor-express/
+  ├── app.py
+  ├── models/
+  │   ├──__init__.py
+  │   ├── avaliacao.py
+  │   ├── cardapio
+  │   │   ├── bebida.py
+  │   │   ├── item_cardapio.py
+  │   │   ├── prato.py
+  │   │   └── sobremesa.py
+  │   ├── menu.py
+  │   └── restautante.py  
+  ├── services/
+  │   ├── __init__.py
+  │   ├── restaurante_service.py
+  └── ustils/
+      ├── __init__.py
+      └── display.py
+```
+
+* `app.py`: Ponto de entrada do aplicativo.
+* `models/`: Contém as classes principais do modelo de dados.
+  * `menu.py`: Classe Menu que gerencia a interface do usuário.
+  * `restaurante.py`: Classe Restaurante que representa os dados e comportamentos de um restaurante.
+  * `avaliacao.py`: Classe Restaurante que representa os dados e comportamentos de um restaurante.
+  * `cardapio/`: Contém as classes que representa o cardápio de restaurantes.
+    * `item_cardapio.py`: Classe ItemCardapio que representa os dados e comportamentos de um item do cardápio.
+    * `prato.py`: Classe Prato que representa os dados e comportamentos de um prato.
+    * `bebida.py`: Classe Bebida que representa os dados e comportamentos de uma bebida.
+    * `sobremesa.py`: Classe Sobremesa que representa os dados e comportamentos de uma sobremesa.
+* `services/`: Contém a lógica de negócios, separando a lógica de manipulação de dados das classes de modelo.
+* `utils/`: Funções para manipulação de dados dos restaurantes.
+  * `display.py`: Funções para exibição de mensagens e formatação de texto.
+
+Cada pasta contém um arquivo `__init__.py` para indicar ao Python que o diretório deve ser tratado como um pacote. Isso permite a importação de módulos de dentro desses diretórios e pode conter código de inicialização para o pacote.
