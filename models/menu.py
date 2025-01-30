@@ -1,5 +1,4 @@
 import os
-from models.restautante import Restaurante
 from services.restaurante_service import RestauranteService
 from utils.display import Display
 
@@ -26,7 +25,9 @@ class Menu:
             '2. Listar restaurante',
             '3. Avaliar restaurante',
             '4. Ativar | Desativar restaurante',
-            '5. Sair\n'
+            '5. Cadastrar cardápio',
+            '6. Listar cardápio',
+            '7. Sair\n'
         ]
         print('\n'.join(opcoes))
 
@@ -41,7 +42,9 @@ class Menu:
                 2: cls.listar_restaurante,
                 3: cls.avaliar_restaurante,
                 4: cls.alternar_status_restaurante,
-                5: cls.finalizar_app
+                5: cls.cadastrar_cardapio,
+                6: cls.listar_cardapio,
+                7: cls.finalizar_app
             }
             opcoes.get(opcao_escolhida, cls.opcao_invalida)()
         except ValueError:
@@ -60,7 +63,7 @@ class Menu:
     def listar_restaurante(cls):
         cls.limpar_tela()
         Display.exibir_subtitulo('Lista de restaurantes')
-        Restaurante.listar()
+        RestauranteService.listar_restaurantes()
         cls.voltar_ao_menu_principal()
 
     @classmethod
@@ -78,6 +81,15 @@ class Menu:
         nome_restaurante = input('Digite o nome do restaurante: ').strip().upper()
         RestauranteService.alternar_status_restaurante(nome_restaurante) 
         cls.voltar_ao_menu_principal()
+
+    @classmethod
+    def cadastrar_restaurante(cls):
+        pass
+
+    @classmethod
+    def listar_restaurante(cls):
+        pass
+
 
     @classmethod
     def opcao_invalida(cls):
