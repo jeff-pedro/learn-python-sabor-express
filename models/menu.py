@@ -44,52 +44,66 @@ class Menu:
         ''' Solicita e executa a opção escolhida pelo usuário '''
         try:
             opcao_escolhida = int(input('Escolha uma opção: '))
-            match opcao_escolhida:
-                case 1: 
-                    cls.exibir_subtitulos('Cadastro de novos restaurantes')
-                    nome = cls.obter_input_valido('Nome')
-                    categoria = cls.obter_input_valido('Categoria')
-                    restaurante = Restaurante(nome, categoria)
-                    restaurante.cadastrar()
-                    cls.voltar_ao_menu_principal()
-                case 2:
-                    cls.exibir_subtitulos('Lista de restaurantes')
-                    Restaurante.listar()
-                    cls.voltar_ao_menu_principal()
-                case 3:
-                    cls.exibir_subtitulos('Avaliando o restaurante')
-                    nome_restaurante = input('Digite o nome do restaurante: ').strip().upper()
-                    restaurante = Restaurante.buscar_por_nome(nome_restaurante)
 
-                    if restaurante:
-                        nota = int(input('Digite a nota do restaurante (0 a 5): '))
-                        restaurante.receber_avaliacao('Anônimo', nota)
-                    else:
-                        print('\nNenhum restaurante encontrado.')
-
-                    cls.voltar_ao_menu_principal()
-                case 4:
-                    cls.exibir_subtitulos('Alternando o estado do restaurante')
-                    nome_restaurante = input('Digite o nome do restaurante: ').strip().upper()
-                    restaurante = Restaurante.buscar_por_nome(nome_restaurante)
-                    restaurante.alternar_status() if restaurante else print('\nNenhum restaurante encontrado.') 
-                    cls.voltar_ao_menu_principal()
-                case 5: 
-                    cls.finalizar_app()
-                    pass
-                case _:
-                    cls.opcao_invalida()
+            opcoes = {
+                1: cls.cadastrar_restaurante,
+                2: cls.listar_restaurante,
+                3: cls.avaliar_restaurante,
+                4: cls.alternar_status_restaurante,
+                5: cls.finalizar_app
+            }
+            opcoes.get(opcao_escolhida, cls.opcao_invalida)()
         except:
             cls.opcao_invalida()
         
+    @classmethod
+    def cadastrar_restaurante(cls):
+        cls.limpar_tela()
+        cls.exibir_subtitulos('Cadastro de novos restaurantes')
+        nome = cls.obter_input_valido('Nome')
+        categoria = cls.obter_input_valido('Categoria')
+        restaurante = Restaurante(nome, categoria)
+        restaurante.cadastrar()
+        cls.voltar_ao_menu_principal()
+
+    @classmethod
+    def listar_restaurante(cls):
+        cls.limpar_tela()
+        cls.exibir_subtitulos('Lista de restaurantes')
+        Restaurante.listar()
+        cls.voltar_ao_menu_principal()
+
+    @classmethod
+    def avaliar_restaurante(cls):
+        cls.limpar_tela()
+        cls.exibir_subtitulos('Avaliando o restaurante')
+        nome_restaurante = input('Digite o nome do restaurante: ').strip().upper()
+        restaurante = Restaurante.buscar_por_nome(nome_restaurante)
+
+        if restaurante:
+            nota = int(input('Digite a nota do restaurante (0 a 5): '))
+            restaurante.receber_avaliacao('Anônimo', nota)
+        else:
+            print('\nNenhum restaurante encontrado.')
+
+        cls.voltar_ao_menu_principal()
+
+    @classmethod
+    def alternar_status_restaurante(cls):
+        cls.limpar_tela()
+        cls.exibir_subtitulos('Alternando o estado do restaurante')
+        nome_restaurante = input('Digite o nome do restaurante: ').strip().upper()
+        restaurante = Restaurante.buscar_por_nome(nome_restaurante)
+        restaurante.alternar_status() if restaurante else print('\nNenhum restaurante encontrado.') 
+        cls.voltar_ao_menu_principal()
 
     @classmethod
     def opcao_invalida(cls):
         ''' Exibe mensagem de opção inválida e retorna ao menu principal ''' 
         print('\nOpção inválida!')
         cls.voltar_ao_menu_principal()
-
     
+
     @classmethod
     def voltar_ao_menu_principal(cls):
         ''' Solicita uma tecla para voltar ao menu principal '''
@@ -99,7 +113,7 @@ class Menu:
     @staticmethod
     def finalizar_app():
         ''' Exibe mensagem de finalização do aplicativo '''
-        os.system('clear');
+        Menu.limpar_tela()
         print('Finalizando o app...\n')
     
     @staticmethod
@@ -110,7 +124,7 @@ class Menu:
         Inputs:
             texto (str): texto do subtítulo
         '''
-        os.system('clear')
+        Menu.limpar_tela
         linha = '*' * len(texto)
         print(linha)
         print(texto.upper())
