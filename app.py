@@ -1,14 +1,15 @@
 # from models.menu import Menu
 import requests
-import os
+import json
 
 url = 'https://guilhermeonrails.github.io/api-restaurantes/restaurantes.json'
 response = requests.get(url)
 
-if response.status_code == 200:
-    dados_json = response.json()
+if response.status_code == 200: # verifica o status code
+    dados_json = response.json() # processa os dados
     dados_restaurante = {}
 
+    # organiza as informações
     for item in dados_json:
 
         nome_do_restaurante = item['Company']
@@ -22,13 +23,19 @@ if response.status_code == 200:
             'description': item['description']
         })
 
-        os.write(0, dados_restaurante[nome_do_restaurante])
-
-        # print(dados_restaurante['McDonald’s'])
-
+    # salva os dados em arquivos
+    for nome_do_restaurante, dados in dados_restaurante.items():
+        nome_do_arquivo = (
+            f'db/{nome_do_restaurante}.json'
+                .replace(' ', '')
+                .replace('’', '')
+                .lower()
+        )
+        with open(nome_do_arquivo, 'w') as arquivo_restaurante:
+            json.dump(dados, arquivo_restaurante, indent=4)
 
 else:
-    print(response.status_code)
+    print(f'O erro foi {response.status_code}')
 
 
 def main():
