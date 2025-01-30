@@ -1,5 +1,6 @@
 import os
 from models.restautante import Restaurante
+from utils.display import Display
 
 class Menu:
     ''' Representa o menu principal '''
@@ -8,24 +9,13 @@ class Menu:
     @classmethod
     def exibir(cls):
         cls.limpar_tela()
-        cls.exibir_nome()
+        Display.exibir_nome_programa()
         cls.exibir_opcoes()
         cls.escolher_opcoes()
 
     @staticmethod
     def limpar_tela():
-        os.system('clear')
-
-    @staticmethod
-    def exibir_nome():
-        ''' Imprime o nome estilizado do programa no terminal ''' 
-        print('*' * 70)
-        print('''
-            █▀ ▄▀█ █▄▄ █▀█ █▀█   █▀▀ ▀▄▀ █▀█ █▀█ █▀▀ █▀ █▀
-            ▄█ █▀█ █▄█ █▄█ █▀▄   ██▄ █░█ █▀▀ █▀▄ ██▄ ▄█ ▄█
-        ''')
-        print('*' * 70)
-        print()
+        os.system('clear')        
 
     @staticmethod
     def exibir_opcoes():
@@ -59,24 +49,24 @@ class Menu:
     @classmethod
     def cadastrar_restaurante(cls):
         cls.limpar_tela()
-        cls.exibir_subtitulos('Cadastro de novos restaurantes')
+        Display.exibir_subtitulo('Cadastro de novos restaurantes')
         nome = cls.obter_input_valido('Nome')
         categoria = cls.obter_input_valido('Categoria')
-        restaurante = Restaurante(nome, categoria)
+        restaurante = Menu.limpar_telastaurante(nome, categoria)
         restaurante.cadastrar()
         cls.voltar_ao_menu_principal()
 
     @classmethod
     def listar_restaurante(cls):
         cls.limpar_tela()
-        cls.exibir_subtitulos('Lista de restaurantes')
+        Display.exibir_subtitulos('Lista de restaurantes')
         Restaurante.listar()
         cls.voltar_ao_menu_principal()
 
     @classmethod
     def avaliar_restaurante(cls):
         cls.limpar_tela()
-        cls.exibir_subtitulos('Avaliando o restaurante')
+        Display.exibir_subtitulos('Avaliando o restaurante')
         nome_restaurante = input('Digite o nome do restaurante: ').strip().upper()
         restaurante = Restaurante.buscar_por_nome(nome_restaurante)
 
@@ -98,7 +88,7 @@ class Menu:
     @classmethod
     def alternar_status_restaurante(cls):
         cls.limpar_tela()
-        cls.exibir_subtitulos('Alternando o estado do restaurante')
+        Display.exibir_subtitulos('Alternando o estado do restaurante')
         nome_restaurante = input('Digite o nome do restaurante: ').strip().upper()
         
         restaurante = Restaurante.buscar_por_nome(nome_restaurante)
@@ -126,21 +116,6 @@ class Menu:
         ''' Exibe mensagem de finalização do aplicativo '''
         Menu.limpar_tela()
         print('Finalizando o app...\n')
-    
-    @staticmethod
-    def exibir_subtitulos(texto):
-        ''' 
-        Exibe um titulo estilizado no terminal
-
-        Inputs:
-            texto (str): texto do subtítulo
-        '''
-        Menu.limpar_tela
-        linha = '*' * len(texto)
-        print(linha)
-        print(texto.upper())
-        print(linha)
-        print()
 
     @classmethod
     def obter_input_valido(cls, campo):
