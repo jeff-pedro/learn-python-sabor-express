@@ -4,13 +4,13 @@ Aplicativo CLI desenvolvido durante as aulas de Python da [Alura]().
 
 ## Descrição
 
-Sabor Express é um aplicativo CLI simples para cadastro de restaurantes. Entre outras funcionalidas está a listagem, avaliaçao e ativar ou desativar restaurantes. Também está disponível um API para acesso aos dados dos restaurantes.
+Sabor Express é um aplicativo CLI simples para cadastro de restaurantes. Entre outras funcionalidas está a listagem, avaliação e possibilidade ativar ou desativar restaurantes. Também está disponível um API para acesso aos dados dos restaurantes.
 
 **Versões:**
 
 * [v1.0.0](#v100)
 * [v2.0.0](#v200)
-* [v3.0.0](#v200)
+* [v3.0.0](#v300)
 
 ## Pré-requisitos
 * [venv](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/)
@@ -105,12 +105,15 @@ Nessa versão foi explorado o paradigma da Programação Orientada a Objetos. A 
 
 **Tópicos que foram estudados:**
 
+* herança de classes
+* uso do método especial `super()` para acessar métodos da classe herdada
 * uso dos métodos `isinstance()` e `hasattr()`
 * mais sobre `property` para leitura dado
 * métodos abstrados através do decorator `@abstractmethod`
 * aplicação do **polimorfismo**
-* uso de ambiente vitualizado com `env`
+* uso de ambiente vitualizado com `venv`
 * documentar e compartilhar dependências com arquivos `requirements.txt`
-* realizar requisições com o módulo `requests`
+* realizar *requisições http* com o módulo `requests`
 * salvar dados em arquivos através do método `with open()`
 * criação de API com **FastAPI**
+* geração de documentação automatica através do *docs* e *redoc* do **Fast API**
