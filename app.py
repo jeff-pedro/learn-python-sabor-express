@@ -38,9 +38,9 @@ else:
     print(f'O erro foi {response.status_code}')
 
 
-def main():
-    # Menu.exibir_menu()
-    pass
+# def main():
+#     # Menu.exibir_menu()
+#     pass
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()

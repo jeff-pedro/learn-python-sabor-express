@@ -69,3 +69,7 @@ Nessa versão foi explorado o paradigma da Programação Orientada a Objetos. A 
 
 * Receber nota de avaliação do restaurante escolhido.
 * Mostrar avalições ao listar os restaurantes.
+
+## Documentação
+
+* http://localhost:8000/docs#/
