@@ -2,6 +2,7 @@ import os
 from services.restaurante_service import RestauranteService
 from services.cardapio_service import CardapioService
 from utils.display import Display
+from time import sleep
 
 class Menu:
     ''' Representa o menu principal '''
@@ -71,7 +72,7 @@ class Menu:
     def avaliar_restaurante(cls):
         cls.limpar_tela()
         Display.exibir_subtitulo('Avaliando o restaurante')
-        nome_restaurante = input('Digite o nome do restaurante: ').strip().upper()
+        nome_restaurante = cls.obter_input_valido('Nome do restaurante')
         RestauranteService.avaliar_restaurante(nome_restaurante)
         cls.voltar_ao_menu_principal()
 
@@ -79,7 +80,7 @@ class Menu:
     def alternar_status_restaurante(cls):
         cls.limpar_tela()        
         Display.exibir_subtitulo('Alternando o estado do restaurante')
-        nome_restaurante = input('Digite o nome do restaurante: ').strip().upper()
+        nome_restaurante = cls.obter_input_valido('Nome do restaurante')
         RestauranteService.alternar_status_restaurante(nome_restaurante) 
         cls.voltar_ao_menu_principal()
 
@@ -104,31 +105,31 @@ class Menu:
         item = opcoes.get(tipo)()
         return item
     
-    @staticmethod
-    def criar_cardapio_prato():
-        nome = input('Nome do prato: ').strip().title()
-        preco = float(input('Preço do prato: '))
-        descricao = input('Descrição do prato: ').strip().title()
+    @classmethod
+    def criar_cardapio_prato(cls):
+        nome = cls.obter_input_valido('Nome do prato')
+        preco = cls.obter_input_valido('Preço do prato', 'float')
+        descricao = cls.obter_input_valido('Descrição do prato')
 
         item = CardapioService.criar_item_prato(nome, preco, descricao)
         return item
 
-    @staticmethod
-    def criar_cardapio_bebida():
-        nome = input('Nome da bebida: ').strip().title()
-        preco = float(input('Preço da bebida: '))
-        tamanho = input('Tamanho da bebida [grande, médio, pequeno]: ').strip().title()
+    @classmethod
+    def criar_cardapio_bebida(cls):
+        nome = cls.obter_input_valido('Nome da bebida')
+        preco = cls.obter_input_valido('Preço da bebida', 'float')
+        tamanho = cls.obter_input_valido('Tamanho da bebida [grande, médio, pequeno]')
 
         item = CardapioService.criar_item_bebida(nome, preco, tamanho)
         return item
     
-    @staticmethod
-    def criar_cardapio_sobremesa():
-        nome = input('Nome da sobremesa: ').strip().title()
-        preco = float(input('Preço da sobremesa: '))
-        tipo = input('Tipo da sobremesa: ').strip().title()
-        tamanho = input('Tamanho da sobremesa [grande, médio, pequeno]: ').strip().title()
-        descricao = input('Descrição da sobremesa: ').strip().title()
+    @classmethod
+    def criar_cardapio_sobremesa(cls):
+        nome = cls.obter_input_valido('Nome da sobremesa')
+        preco = cls.obter_input_valido('Preço da sobremesa', 'float')
+        tipo = cls.obter_input_valido('Tipo da sobremesa')
+        tamanho = cls.obter_input_valido('Tamanho da sobremesa [grande, médio, pequeno]')
+        descricao = cls.obter_input_valido('Descrição da sobremesa')
 
         item = CardapioService.criar_item_sobremesa(nome, preco, tipo, tamanho, descricao)
         return item
@@ -188,10 +189,13 @@ class Menu:
     def finalizar_app():
         ''' Exibe mensagem de finalização do aplicativo '''
         Menu.limpar_tela()
-        print('Finalizando o app...\n')
+        print('Finalizando', end='')
+        for i in range(3):
+            sleep(1)
+            print('.', end='')
 
     @classmethod
-    def obter_input_valido(cls, campo):
+    def obter_input_valido(cls, campo, tipo='string'):
         ''' 
         Obtem, formata e valida se o valor do input não está vazio
 item
@@ -201,11 +205,19 @@ item
         Outputs:
             string:  valor do input formatado e em letras maíusculas 
         '''
-        valor = input(f'{campo}: ').strip().upper()
-        while not valor:
-            print(f'{campo} não pode ser vazio.')
+        if tipo == 'string':
             valor = input(f'{campo}: ').strip().upper()
-        return valor
+            while not valor:
+                print(f'{campo} não pode ser vazio.')
+                valor = input(f'{campo}: ').strip().upper()
+            return valor
+        elif tipo == 'float':
+            valor = float(input(f'{campo}: '))
+            while not valor:
+                print(f'{campo} não pode ser vazio.')
+                valor = float(input(f'{campo}: '))
+            return valor
+
 
     @classmethod
     def validar_restaurante(cls, nome_do_restaurante):
