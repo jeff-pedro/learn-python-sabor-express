@@ -1,6 +1,7 @@
 from models.avaliacao import Avaliacao
 from models.cardapio.bebida import Bebida
 from models.cardapio.prato import Prato
+from models.cardapio.sobremesa import Sobremesa
 from models.cardapio.item_cardapio import ItemCardapio
 
 class Restaurante:
@@ -119,27 +120,18 @@ class Restaurante:
     @property
     def exibir_cardapio(self):
         """ Exibe uma lista formatada do cardápio de um restaurnte. """
-        print(f'Cardapio do restaurante {self._nome}\n')
-
         for i, item in enumerate(self._cardapio, start=1):
             preco_string = f'{item._preco:.2f}'
             preco_formatado = preco_string.replace('.', ',')
-
-            # if hasattr(item, '_tamanho') and hasattr(item, '_tipo'):
-            #     complemento = f'Tipo: {item._tipo} | Tamanho: {item._tamanho} | Descrição: {item._descricao}'
-            # elif hasattr(item, '_tamanho'):
-            #     complemento = f'Tamanho: {item._tamanho}' 
-            # else:
-            #     complemento = f'Descrição: {item._descricao}'
             
             if isinstance(item, Bebida):
-                complemento = f'Tamanho: {item._tamanho}' 
+                complemento = f'{item._tamanho}' 
             elif isinstance(item, Prato):
-                complemento = f'Descrição: {item._descricao}'
+                complemento = f'{item._descricao}'
             else:
-                 complemento = f'Tipo: {item._tipo} | Tamanho: {item._tamanho} | Descrição: {item._descricao}'
+                 complemento = f'{item._tamanho} - {item._tipo} - {item._descricao}'
 
-            mensagem = f'{i}. Nome: {item._nome} | Preço: R$ {preco_formatado} | {complemento}'
+            mensagem = f'{i}. {item._nome} - R$ {preco_formatado} - {complemento}'
             
             print(mensagem)
         return ''

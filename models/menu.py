@@ -88,6 +88,7 @@ class Menu:
         cls.limpar_tela()
         Display.exibir_subtitulo(f'Cadastro de cardápio')
         nome_restaurante = cls.obter_input_valido('Nome do restaurante')
+        cls.validar_restaurante(nome_restaurante)
         tipo_cardapio = cls.obter_tipo_cardapio()
         item = cls.criar_item_cardapio(tipo_cardapio)
         CardapioService.adicionar_no_cardapio(nome_restaurante, item)
@@ -139,7 +140,6 @@ class Menu:
                 '1. Prato',
                 '2. Bebida',
                 '3. Sobremesa',
-                '4. Voltar ao menu principal\n'
             ]
         print('\n'.join(opcoes))
 
@@ -148,17 +148,14 @@ class Menu:
         try:
             cls.exibir_opcoes_cardapio()
             opcao_escolhida = int(input('Escolha uma opção: '))
+            print()
             opcoes = {
                 1: 'prato',
                 2: 'bebida',
                 3: 'sobremesa',
-                4: 'sair'
             }
-            if opcao_escolhida == 4:
-                cls.exibir_menu()
 
             tipo = opcoes.get(opcao_escolhida)
-
             if not tipo:
                 raise ValueError()
             
@@ -168,7 +165,12 @@ class Menu:
 
     @classmethod
     def listar_cardapio(cls):
-        pass        
+        cls.limpar_tela()
+        Display.exibir_subtitulo(f'Listagem de cardápio')
+        nome_restaurante = cls.obter_input_valido('Nome do restaurante')
+        print()
+        CardapioService.listar_cardapio(nome_restaurante)       
+        cls.voltar_ao_menu_principal()
 
     @classmethod
     def opcao_invalida(cls):
@@ -192,7 +194,7 @@ class Menu:
     def obter_input_valido(cls, campo):
         ''' 
         Obtem, formata e valida se o valor do input não está vazio
-
+item
         Inputs:
             campo (str): campo/mensagem que será apresentada no input
 
@@ -204,3 +206,11 @@ class Menu:
             print(f'{campo} não pode ser vazio.')
             valor = input(f'{campo}: ').strip().upper()
         return valor
+
+    @classmethod
+    def validar_restaurante(cls, nome_do_restaurante):
+        restaurante_valido = RestauranteService.buscar_restaurante(nome_do_restaurante)
+        if not restaurante_valido:
+            cls.voltar_ao_menu_principal() 
+        else:
+            return restaurante_valido

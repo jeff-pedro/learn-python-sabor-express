@@ -33,4 +33,16 @@ class RestauranteService:
         if restaurante:
             restaurante.alternar_status()
         else:
-            print('\nNenhum restaurante encontrado.') 
+            print('\nNenhum restaurante encontrado.')
+
+    @staticmethod
+    def buscar_restaurante(nome):
+        try:
+            restaurante = Restaurante.buscar_por_nome(nome)
+
+            if not restaurante:
+                raise Exception(f'\nNenhum restaurante chamado {nome.upper()} foi encontrado.')
+
+            return restaurante
+        except Exception as e:
+            print(e)
