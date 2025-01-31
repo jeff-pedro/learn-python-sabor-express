@@ -149,7 +149,7 @@ sabor-express/
 * `models/`: Contém as classes principais do modelo de dados.
   * `menu.py`: Classe Menu que gerencia a interface do usuário.
   * `restaurante.py`: Classe Restaurante que representa os dados e comportamentos de um restaurante.
-  * `avaliacao.py`: Classe Restaurante que representa os dados e comportamentos de um restaurante.
+  * `avaliacao.py`: Classe Avaliacao que representa os dados e comportamentos de uma avaliação.
   * `cardapio/`: Contém as classes que representa o cardápio de restaurantes.
     * `item_cardapio.py`: Classe ItemCardapio que representa os dados e comportamentos de um item do cardápio.
     * `prato.py`: Classe Prato que representa os dados e comportamentos de um prato.
