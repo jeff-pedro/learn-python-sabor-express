@@ -30,7 +30,7 @@ python app.py
 ```
 
 <p align="center">
-  <img src="./docs/img/sabor-express.gif" alt="animated" width=600 />
+  <img src="./img/sabor-express.gif" alt="animated" width=600 />
 </p>
 
 ## ⚙️ API
@@ -100,7 +100,7 @@ Nessa versão foi explorado o paradigma da Programação Orientada a Objetos. A 
 **Novas funcionalidades:**
 
 * Adicionar cardápio aos restaurantes.
-* Listar cardápio por restarante.
+* Listar cardápio por restaurante.
 * [Endpoint](localhost:8000/docs) para acessar API da aplicação.
 * Melhoria na organização do código.
 

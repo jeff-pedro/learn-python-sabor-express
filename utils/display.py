@@ -2,7 +2,7 @@ import os
 
 class Display:
     ''' Disponibiliza métodos para exibição de mensagens formatadas de texto. '''
-    linha = '*' * 70
+    linha = '*' * 78
     
     @staticmethod
     def exibir_nome_programa():
@@ -10,8 +10,8 @@ class Display:
         
         print(Display.linha)
         print('''
-            █▀ ▄▀█ █▄▄ █▀█ █▀█   █▀▀ ▀▄▀ █▀█ █▀█ █▀▀ █▀ █▀
-            ▄█ █▀█ █▄█ █▄█ █▀▄   ██▄ █░█ █▀▀ █▀▄ ██▄ ▄█ ▄█
+                █▀ ▄▀█ █▄▄ █▀█ █▀█   █▀▀ ▀▄▀ █▀█ █▀█ █▀▀ █▀ █▀
+                ▄█ █▀█ █▄█ █▄█ █▀▄   ██▄ █░█ █▀▀ █▀▄ ██▄ ▄█ ▄█
         ''')
         print(Display.linha)
         print()
