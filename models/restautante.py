@@ -1,8 +1,11 @@
 from models.avaliacao import Avaliacao
+from models.cardapio.bebida import Bebida
+from models.cardapio.prato import Prato
+from models.cardapio.sobremesa import Sobremesa
+from models.cardapio.item_cardapio import ItemCardapio
 
 class Restaurante:
     """ Representa um restaurantes e suas caracteristicas. """
-
     restaurantes = []
 
     def __init__(self, nome, categoria, ativo = False):
@@ -17,6 +20,7 @@ class Restaurante:
         self._categoria = categoria.title()
         self._ativo = ativo
         self._avaliacao = []
+        self._cardapio = []
 
 
     def __str__(self):
@@ -27,14 +31,17 @@ class Restaurante:
     @classmethod
     def listar(cls):
         """ Exibe uma lista formatada de todos os restaurantes. """
-        print(f'{"NOME DO RESTAURANTE".ljust(20)} | {"CATEGORIA".ljust(20)} | {"AVALIAÇÃO".ljust(20)} | STATUS')
-        print(f'{"-" * 20} | {"-" * 20} | {"-" * 20} | {"-" * 9}')
+        if cls.restaurantes:
+            print(f'{"NOME DO RESTAURANTE".ljust(20)} | {"CATEGORIA".ljust(20)} | {"AVALIAÇÃO".ljust(20)} | STATUS')
+            print(f'{"-" * 20} | {"-" * 20} | {"-" * 20} | {"-" * 9}')
+        else:
+            print('Nenhum restaurante cadastrado.')
 
         for restaurante in cls.restaurantes:
             print(f'{restaurante._nome.ljust(20)} | {restaurante._categoria.ljust(20)} | {str(restaurante.media_avaliacoes).ljust(20)} | {restaurante.ativo}')
         return ''
     
-
+    
     def alternar_status(self):
         """ Altera o estado de atividade do restaurante """
         self._ativo = not self._ativo
@@ -47,11 +54,10 @@ class Restaurante:
 
         Parâmetros:
         - cliente (str): O nome do cliente que fez a avaliação
-        - nota (float): A nota atribuída ao restaurante (entre 0 e 5)
+        - nota (float): A nota atribuída ao restaurante
         """
-        if 0 < nota <= 5:
-            avaliacao = Avaliacao(cliente, nota)
-            self._avaliacao.append(avaliacao)
+        avaliacao = Avaliacao(cliente, nota)
+        self._avaliacao.append(avaliacao)
 
 
     @property # para deixar o método disponível para ser lido como propriedade do objeto 
@@ -104,3 +110,30 @@ class Restaurante:
         for restaurante in cls.restaurantes:
             if restaurante._nome.upper() == nome:
                 return restaurante
+
+
+    def adicionar_no_cardapio(self, item):
+        if isinstance(item, ItemCardapio):
+            self._cardapio.append(item)
+
+
+    @property
+    def exibir_cardapio(self):
+        """ Exibe uma lista formatada do cardápio de um restaurnte. """
+        for i, item in enumerate(self._cardapio, start=1):
+            preco_string = f'{item._preco:.2f}'
+            preco_formatado = preco_string.replace('.', ',')
+            
+            if isinstance(item, Bebida):
+                complemento = f'{item._tamanho}' 
+            elif isinstance(item, Prato):
+                complemento = f'{item._descricao}'
+            else:
+                 complemento = f'{item._tamanho} - {item._tipo} - {item._descricao}'
+
+            mensagem = f'{i}. {item._nome} - R$ {preco_formatado} - {complemento}'
+            
+            print(mensagem)
+        return ''
+
+ 
